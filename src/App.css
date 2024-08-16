@@ -10,9 +10,25 @@
 }
 
 .todolist {
-  border: 2px solid red;
+  border: 2px solid #4688ff;
   background-color: #fff7c9;
   border-radius: 10px;
   padding: 15px;
   height: max-content;
+}
+
+.error {
+  border: red 1px solid;
+}
+
+.error-message {
+  color: red;
+}
+
+.active-filter {
+  background-color: lightgreen;
+}
+
+.is-done {
+  opacity: 0.5;
 }
