@@ -2,12 +2,13 @@ import React, {ChangeEvent,KeyboardEvent, useState} from 'react';
 import {FilterValuesType, TaskType} from './App';
 
 type PropsType = {
+    id:string
     title: string
     tasks: Array<TaskType>
-    removeTask: (id: string) => void
-    changeFilter: (value: FilterValuesType) => void
-    addTask: (title: string) => void
-    changeStatus: (taskId: string, isDone: boolean) => void
+    removeTask: (todolistID: string, id: string) => void
+    changeFilter: (todolistID: string,value: FilterValuesType) => void
+    addTask: (todolistID: string, title: string) => void
+    changeStatus: (todolistID: string, taskId: string, isDone: boolean) => void
     filter:FilterValuesType
 }
 
@@ -20,7 +21,7 @@ export const TodoList = (props: PropsType) => {
     }
     const addTaskHandler = () => {
         if (title.trim() !== '') {
-            props.addTask(title)
+            props.addTask(props.id ,title)
             setTitle('')
         } else {
             setError('Title is requered')
@@ -33,13 +34,13 @@ export const TodoList = (props: PropsType) => {
         }
     }
     const onAllClickHandler = () => {
-        props.changeFilter('all')
+        props.changeFilter(props.id ,'all')
     }
     const onActiveClickHandler = () => {
-        props.changeFilter('active')
+        props.changeFilter(props.id ,'active')
     }
     const onCompletedClickHandler = () => {
-        props.changeFilter('completed')
+        props.changeFilter(props.id ,'completed')
     }
 
 
@@ -59,10 +60,10 @@ export const TodoList = (props: PropsType) => {
                 {
                     props.tasks.map((t) => {
                         const removeTaskHandler = () => {
-                            props.removeTask(t.id)
+                            props.removeTask(props.id, t.id)
                         }
                         const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                            props.changeStatus(t.id, e.currentTarget.checked)
+                            props.changeStatus(props.id, t.id, e.currentTarget.checked)
                         }
                         return (
                             <li key={t.id} className={t.isDone ? 'is-done' : ""}>
