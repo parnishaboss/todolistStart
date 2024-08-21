@@ -39,7 +39,6 @@ function App() {
             {id: v1(), isDone: false, title: 'Redux'}
         ]
     })
-
     const [todolists, setTodolists] = useState<Array<TodolistType>>([
         {id: todolistID1, title: 'What to learn', filter: 'all'},
         {id: todolistID2, title: 'What to buy', filter: 'all'},]
@@ -72,7 +71,12 @@ function App() {
             setTasksObj({...tasksObj})
         }
     }
-
+    const removeTodolsit = (todolistID:string) => {
+        let filteredTodolists = todolists.filter(t => t.id !== todolistID)
+        setTodolists(filteredTodolists)
+        delete tasksObj[todolistID]
+        setTasksObj({...tasksObj})
+    }
 
     return (
         <div className="App">
@@ -93,6 +97,7 @@ function App() {
                         addTask={addTask}
                         changeStatus={changeStatus}
                         filter={tl.filter}
+                        removeTodolsit={removeTodolsit}
                     />
                 )
             })}
