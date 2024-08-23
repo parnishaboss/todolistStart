@@ -83,6 +83,21 @@ function App() {
         setTodolists([todolist,...todolists])
         setTasksObj({...tasksObj, [todolist.id]: []})
     }
+    const changeTaskTitle = (todolistID: string, taskID:string, newTitle:string) => {
+        let tasks = tasksObj[todolistID]
+        let task = tasks.find(t => t.id === taskID)
+        if (task) {
+            task.title = newTitle
+            setTasksObj({...tasksObj})
+        }
+    }
+    const changeTodolistTitle = (todolistID: string, newTitle:string) => {
+        let todolist = todolists.find(t => t.id === todolistID)
+        if (todolist) {
+            todolist.title = newTitle
+            setTodolists([...todolists])
+        }
+    }
     return (
         <div className="App">
             <AddItemForm addItem={addTodolist}/>
@@ -104,6 +119,8 @@ function App() {
                         changeStatus={changeStatus}
                         filter={tl.filter}
                         removeTodolsit={removeTodolsit}
+                        changeTaskTitle={changeTaskTitle}
+                        changeTodolistTitle={changeTodolistTitle}
                     />
                 )
             })}
