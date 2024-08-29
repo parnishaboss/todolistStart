@@ -2,8 +2,9 @@ import React, {ChangeEvent} from 'react';
 import {FilterValuesType, TaskType} from './App';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
-import {Button, Checkbox, IconButton, ListItem} from '@mui/material';
+import {Box, Button, Checkbox, IconButton, List, ListItem} from '@mui/material';
 import {Delete} from '@mui/icons-material';
+import { filterButtonsContainerSx,getListItemSx} from './Todolist.styles';
 
 type PropsType = {
     id: string
@@ -51,9 +52,8 @@ export const TodoList = (props: PropsType) => {
             <AddItemForm
                 addItem={addTask}
             />
-            <ul>
-                {
-                    props.tasks.map((t) => {
+            <List>
+                {props.tasks.map((t) => {
                         const removeTaskHandler = () => {
                             props.removeTask(props.id, t.id)
                         }
@@ -64,13 +64,8 @@ export const TodoList = (props: PropsType) => {
                             props.changeTaskTitle(props.id, t.id, newTitle)
                         }
                         return (
-
                             <ListItem key={t.id}
-                                      sx={{
-                                          p: 0,
-                                          justifyContent: 'space-between',
-                                          opacity: t.isDone ? 0.5 : 1,
-                                      }}>
+                                      sx={getListItemSx(t.isDone)}>
                                 <div>
                                     <Checkbox
                                         onChange={onChangeStatusHandler}
@@ -86,8 +81,8 @@ export const TodoList = (props: PropsType) => {
                         )
                     })
                 }
-            </ul>
-            <div>
+            </List>
+            <Box sx={filterButtonsContainerSx}>
                 <Button variant={props.filter === 'all' ? 'contained' : 'text'} color={'primary'}
                         onClick={onAllClickHandler}>All
                 </Button>
@@ -97,7 +92,7 @@ export const TodoList = (props: PropsType) => {
                 <Button variant={props.filter === 'completed' ? 'contained' : 'text'} color={'primary'}
                         onClick={onCompletedClickHandler}>Completed
                 </Button>
-            </div>
+            </Box>
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {IconButton, TextField} from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import {Box, IconButton, TextField} from '@mui/material';
+import {AddBox} from '@mui/icons-material';
 
 export type addItemFormPropsType = {
     addItem: (title: string) => void
@@ -27,7 +27,7 @@ export const AddItemForm = (props: addItemFormPropsType) => {
         }
     }
     return (
-        <div>
+        <Box sx={{display: 'flex'}}>
             <TextField
                 variant={'standard'}
                 label={'Type value'}
@@ -37,9 +37,9 @@ export const AddItemForm = (props: addItemFormPropsType) => {
                 onKeyUp={addTaskOnKeyUpHandler}
                 helperText={error}
             />
-            <IconButton sx={{pt:'20px'}} color={'primary'} onClick={addTaskHandler}>
-                <AddIcon/>
+            <IconButton  color={'primary'} onClick={addTaskHandler}>
+                <AddBox/>
             </IconButton>
-        </div>
+        </Box>
     )
 }
